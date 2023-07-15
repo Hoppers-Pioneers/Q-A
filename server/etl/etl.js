@@ -27,60 +27,50 @@ etl(client,
 
 //answers_by_question_id
 etl(client,
-  'photos_by_review_id',
-  path.join(__dirname, '../data_folder/reviews_photos.csv'),
-  [ ['id', 'uuid'], ['review_id', 'int'], ['url', 'text'] ],
-  2742541,
-  '((review_id), id)',
-  '(id DESC)'
+  'answers_by_question_id',
+  path.join(__dirname, './oldData/answers.csv'),
+  [ ['id', 'uuid'], ['question_id', 'int'], ['body', 'text'], ['date_written', 'date'], ['answer_name', 'text'], ['answer_email', 'text'], ['reported', 'boolean'], ['helpful', 'int'] ],
+  6879306
 );
 
 //photos_by_answer_id
 etl(client,
-  'photos_by_review_id',
-  path.join(__dirname, '../data_folder/reviews_photos.csv'),
-  [ ['id', 'uuid'], ['review_id', 'int'], ['url', 'text'] ],
-  2742541,
-  '((review_id), id)',
-  '(id DESC)'
+  'photos_by_answer_id',
+  path.join(__dirname, './oldData/answers_photos.csv'),
+  [ ['id', 'uuid'], ['answer_id', 'int'], ['url', 'text'] ],
+  2063759
 );
+
+//////////////////////////////////////////////////////////////
 
 //mark_question_helpful
 etl(client,
-  'photos_by_review_id',
-  path.join(__dirname, '../data_folder/reviews_photos.csv'),
-  [ ['id', 'uuid'], ['review_id', 'int'], ['url', 'text'] ],
-  2742541,
-  '((review_id), id)',
-  '(id DESC)'
+  'mark_question_helpful',
+  path.join(__dirname, './oldData/questions.csv'),
+  [ ['id', 'uuid'], ['helpful', 'int'] ],
+  3518963
 );
 
 //mark_answer_helpful
 etl(client,
-  'photos_by_review_id',
-  path.join(__dirname, '../data_folder/reviews_photos.csv'),
-  [ ['id', 'uuid'], ['review_id', 'int'], ['url', 'text'] ],
-  2742541,
-  '((review_id), id)',
-  '(id DESC)'
+  'mark_answer_helpful',
+  path.join(__dirname, './oldData/answers.csv'),
+  [ ['id', 'uuid'], ['helpful', 'int'] ],
+  6879306
 );
 
 //report_question
 etl(client,
-  'photos_by_review_id',
-  path.join(__dirname, '../data_folder/reviews_photos.csv'),
-  [ ['id', 'uuid'], ['review_id', 'int'], ['url', 'text'] ],
-  2742541,
-  '((review_id), id)',
-  '(id DESC)'
+  'report_question',
+  path.join(__dirname, './oldData/questions.csv'),
+  [ ['id', 'uuid'], ['reported', 'boolean'] ],
+  3518963
 );
 
 //report_answer
 etl(client,
-  'photos_by_review_id',
-  path.join(__dirname, '../data_folder/reviews_photos.csv'),
-  [ ['id', 'uuid'], ['review_id', 'int'], ['url', 'text'] ],
-  2742541,
-  '((review_id), id)',
-  '(id DESC)'
+  'report_answer',
+  path.join(__dirname, './oldData/answers.csv'),
+  [ ['id', 'uuid'], ['reported', 'boolean'] ],
+  6879306
 );
