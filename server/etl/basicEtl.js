@@ -27,7 +27,7 @@ module.exports = function(client, tableName, file, columns, total) {
   let count = 0;
 
   const b1 = new cliProgress.SingleBar({
-    format: 'LOADING REVIEW CSV |' + colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks',
+    format: 'LOADING QUESTION CSV |' + colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Chunks',
     barCompleteChar: '\u2588',
     barIncompleteChar: '\u2591',
     hideCursor: true
