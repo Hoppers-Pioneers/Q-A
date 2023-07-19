@@ -1,21 +1,21 @@
-const cassandra = require('cassandra-driver');
-const fs = require('fs');
-const { parse } = require('csv-parse');
-const path = require('path');
-const cliProgress = require('cli-progress');
-const colors = require('ansi-colors');
-const idToUUid = require('./uuid.js');
-const rows = [];
-const etl = require('./basicEtl.js');
-//////////////////////////////////////////////////////////////////////////
+// const cassandra = require('cassandra-driver');
+// const fs = require('fs');
+// const { parse } = require('csv-parse');
+// const path = require('path');
+// const cliProgress = require('cli-progress');
+// const colors = require('ansi-colors');
+// const idToUUid = require('./uuid.js');
+// const rows = [];
+// const etl = require('./basicEtl.js');
+// //////////////////////////////////////////////////////////////////////////
 
-const client = new cassandra.Client({
-  contactPoints: ['localhost:8080'],
-  localDataCenter: 'datacenter1',
-  keyspace: 'qna'
-});
+// const client = new cassandra.Client({
+//   contactPoints: ['localhost:8080'],
+//   localDataCenter: 'datacenter1',
+//   keyspace: 'qna'
+// });
 
-client.execute('USE qna');
+// client.execute('USE qna');
 
 //questions_by_product_id
 // etl(client,
@@ -26,12 +26,12 @@ client.execute('USE qna');
 // );
 
 // //answer_by_question_id
-etl(client,
-  'answer_by_question_id',
-  path.join(__dirname, './oldData/answers.csv'),
-  [ ['id', 'uuid'], ['question_id', 'int'], ['body', 'text'], ['date_written', 'date'], ['answerer_name', 'text'], ['answerer_email', 'text'], ['reported', 'boolean'], ['helpful', 'int'] ],
-  6879306
-);
+// etl(client,
+//   'answer_by_question_id',
+//   path.join(__dirname, './oldData/answers.csv'),
+//   [ ['id', 'uuid'], ['question_id', 'int'], ['body', 'text'], ['date_written', 'date'], ['answerer_name', 'text'], ['answerer_email', 'text'], ['reported', 'boolean'], ['helpful', 'int'] ],
+//   6879306
+// );
 
 //photos_by_answer_id
 // etl(client,
