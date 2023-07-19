@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 
 /*---------------------QUESTIONS----------------------*/
 app.get('/qa/questions', questionsController.getAll);
-app.post('/qa/questions', /*'constrollololol'*/);
+app.post('/qa/questions', questionsController.add);
 
 /*----------------------ANSWERS-----------------------*/
 app.get('/qa/questions/:question_id/answers', /*'constrollololol'*/);
