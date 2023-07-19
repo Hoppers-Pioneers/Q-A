@@ -9,16 +9,14 @@ exports.getAll = async ({ question_id }) => {
   return await client.execute(query, params, {prepare: true});
 };
 
-// exports.add = async ({ product_id, body, name, email }) => {
-//   const date_written = new Date().getTime();
+exports.add = async ({ question_id, body, name, email }) => {
+  const date_written = new Date().getTime();
 
+  const params = [question_id, random(32).toString(), email, name, body, date_written, 0, 0];
 
-//   const params = [product_id, random(32).toString(), email, name, body, date_written, 0, 0];
-//   console.log(params);
+  const query = 'INSERT INTO qna.answers_by_question_id (question_id, id, answerer_email, answerer_name, body, date_written, helpful, reported) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
 
-//   const query = 'INSERT INTO qna.questions_by_product_id (product_id, id, asker_email, asker_name, body, date_written, helpful, reported) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
+  console.log(query, params)
 
-//   console.log(query, params)
-
-//   return await client.execute(query, params, {prepare: true});
-// };
+  return await client.execute(query, params, {prepare: true});
+};
