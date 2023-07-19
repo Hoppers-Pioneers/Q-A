@@ -12,7 +12,6 @@ exports.getAll = async (req, res) => {
 };
 
 exports.add = async (req, res) => {
-  // console.log('ADD QUESTIONS: ', req.query);
   questions.add(req.query)
   .then((addResp) => {
     res.status(201).send();

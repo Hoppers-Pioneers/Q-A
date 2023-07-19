@@ -18,8 +18,8 @@ app.get('/qa/questions', questionsController.getAll);
 app.post('/qa/questions', questionsController.add);
 
 /*----------------------ANSWERS-----------------------*/
-app.get('/qa/questions/:question_id/answers', /*'constrollololol'*/);
-app.post('/qa/questions/:question_id/answers', /*'constrollololol'*/);
+app.get('/qa/questions/:question_id/answers', answersController.getAll);
+app.post('/qa/questions/:question_id/answers', answersController.add);
 
 /*----------------------HELPFUL-----------------------*/
 app.put('/qa/questions/:question_id/helpful', /*'constrollololol'*/);
