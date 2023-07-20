@@ -3,7 +3,7 @@ const answers = require('../models/Answers.js');
 exports.getAll = async (req, res) => {
   answers.getAll(req.params)
   .then((allResp) => {
-    res.status(200).send(allResp.rows);
+    res.status(200).send(allResp);
   })
   .catch( (err) => {
     console.error(err);
