@@ -23,7 +23,7 @@ app.post('/qa/questions/:question_id/answers', answersController.add);
 
 /*----------------------HELPFUL-----------------------*/
 app.put('/qa/questions/:question_id/helpful', helpfulController.updateQuestionHelpfulness);
-app.put('/qa/answer/:answer_id/helpful', helpfulController.updateAnswerHelpfulness);
+app.put('/qa/answers/:answer_id/helpful', helpfulController.updateAnswerHelpfulness);
 
 /*----------------------REPORT-----------------------*/
 app.put('/qa/questions/:question_id/report', /*'constrollololol'*/);

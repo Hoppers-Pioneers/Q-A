@@ -12,7 +12,7 @@ exports.updateQuestionHelpfulness = async (req, res) => {
 };
 
 exports.updateAnswerHelpfulness = async (req, res) => {
-  helpful.updateAnswerHelpfulness(req.body)
+  helpful.updateAnswerHelpfulness(req.params)
   .then((updateResp) => {
     res.status(204).send();
   })
