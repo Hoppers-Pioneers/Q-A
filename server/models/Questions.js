@@ -65,7 +65,9 @@ exports.getAll = async ({ product_id }) => {
   )
 };
 
-exports.add = async ({ product_id, body, name, email }) => {
+exports.add = async (reqParams, reqBody) => {
+  const { product_id } = reqParams;
+  const { email, name, body, photos } = reqBody;
   const date_written = new Date().getTime();
 
   const params = [product_id, random(32).toString(), email, name, body, date_written, 0, 0];

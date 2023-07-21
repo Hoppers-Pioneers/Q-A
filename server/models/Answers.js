@@ -43,16 +43,17 @@ exports.add = async (reqParams, reqBody) => {
   const date_written = new Date().getTime();
   const id = random(32).toString();
 
+
+
   const answerParams = [question_id, id, email, name, body, date_written, 0, 0];
   const queryAnswer = 'INSERT INTO qna.answers_by_question_id (question_id, id, answerer_email, answerer_name, body, date_written, helpful, reported) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
 
-  let photoParams;
-  let queryPhotos;
+
+
   const queries = [];
-
-
   try {
     await client.execute(queryAnswer, answerParams, {prepare: true});
+
 
     if (photos) {
       photos.forEach((photo) => {
@@ -61,6 +62,7 @@ exports.add = async (reqParams, reqBody) => {
           params: [id, random(32).toString(), photo]
         });
       });
+
 
       return await client.batch(queries, {prepare: true});
     }

@@ -13,7 +13,8 @@ exports.getAll = async (req, res) => {
 };
 
 exports.add = async (req, res) => {
-  questions.add(req.body)
+  const {query, body} = req
+  questions.add(query, body)
   .then((addResp) => {
     res.status(201).send();
   })

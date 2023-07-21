@@ -22,10 +22,12 @@ app.get('/qa/questions/:question_id/answers', answersController.getAll);
 app.post('/qa/questions/:question_id/answers', answersController.add);
 
 /*----------------------HELPFUL-----------------------*/
-app.put('/qa/questions/:question_id/helpful', /*'constrollololol'*/);
+app.put('/qa/questions/:question_id/helpful', helpfulController.updateQuestionHelpfulness);
+app.put('/qa/answer/:answer_id/helpful', helpfulController.updateAnswerHelpfulness);
 
 /*----------------------REPORT-----------------------*/
 app.put('/qa/questions/:question_id/report', /*'constrollololol'*/);
+app.put('/qa/answer/:answer_id/report', /*'constrollololol'*/);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
