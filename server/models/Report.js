@@ -18,5 +18,16 @@ exports.reportQuestion = async ({ question_id }) => {
 };
 
 exports.reportAnswer = async ({ answer_id }) => {
-  console.log('invoked')
+  console.log(answer_id)
+  const queryFind = 'SELECT question_id FROM answers_by_id WHERE id = ?;';
+  const found = await client.execute(queryFind, [answer_id], {prepare: true});
+  const { question_id } = found.rows[0];
+  console.log('question_id: ', question_id)
+
+  const queryUpdate = 'UPDATE qna.answers_by_question_id SET reported = ? WHERE question_id = ? AND id = ?;';
+  try {
+    return await client.execute(queryUpdate, [1, question_id, answer_id], {prepare: true});
+  } catch (err) {
+    throw err;
+  }
 };
