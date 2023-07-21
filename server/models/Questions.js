@@ -7,8 +7,7 @@ exports.getAll = async ({ product_id }) => {
   const queryQuest = 'SELECT * FROM questions_by_reported WHERE reported = 0 AND product_id = ?';
 
   const questionData = await client.execute(queryQuest, [product_id], {prepare: true});
-
-  if (questionData.rows.length < 1) return {id: product_id, results: {}}
+  if (questionData.rows.length < 1) throw new Error('Invalid Product ID')
 
   //--------------------Answers--------------------//
   let queryAnswer = 'SELECT * FROM answers_by_reported WHERE reported = 0 AND question_id IN (';
@@ -56,7 +55,6 @@ exports.getAll = async ({ product_id }) => {
     })
   });
 
-  console.log('RESULT', questionData.rows)
 
 
   return (

@@ -3,9 +3,9 @@ const random = require('random-bigint')
 
 
 exports.getAll = async ({ question_id }) => {
-  const query1 = 'SELECT * FROM answers_by_reported WHERE reported = ? AND question_id = ?';
-  let query2 = 'SELECT * FROM photos_by_answer_id WHERE answer_id IN (';
-  const answerData =  await client.execute(query1, [0, question_id], {prepare: true});
+  const queryAnswer = 'SELECT * FROM answers_by_reported WHERE reported = ? AND question_id = ?';
+  let queryPhoto = 'SELECT * FROM photos_by_answer_id WHERE answer_id IN (';
+  const answerData =  await client.execute(queryAnswer, [0, question_id], {prepare: true});
 
 
   //instead of doing multiple queries to get the photos for many answers -> do 1 query to get the photos for many answers by using the IN keyword -> the result contains
@@ -14,15 +14,14 @@ exports.getAll = async ({ question_id }) => {
 
   const parameters = [];
   answerData.rows.forEach((answer) => {
-    query2 += '?,';
+    queryPhoto += '?,';
     parameters.push(answer.id);
   });
-  query2 = query2.slice(0, query2.length - 1);
-  query2 += ');';
+  queryPhoto = queryPhoto.slice(0, queryPhoto.length - 1);
+  queryPhoto += ');';
 
   //iterate through photoData information -> use answer_id within to separate the answer photos
-  let photoData = await client.execute(query2, [...parameters], {prepare: true})
-  console.log(photoData)
+  let photoData = await client.execute(queryPhoto, [...parameters], {prepare: true})
 
   answerData.rows.forEach((answer) => {
     if (!answer.photos) answer.photos = [];
@@ -30,17 +29,35 @@ exports.getAll = async ({ question_id }) => {
       if (photo.answer_id == answer.id) answer.photos.push({id: photo.id, url: photo.url});
     })
   });
-  return answerData.rows;
+  return (
+    {
+      question: question_id,
+      results: answerData.rows
+    }
+  )
 };
 
-exports.add = async ({ question_id, body, name, email }) => {
+exports.add = async (reqParams, reqBody) => {
+  const { question_id } = reqParams;
+  const { email, name, body, photos } = reqBody;
   const date_written = new Date().getTime();
+  const id = random(32).toString();
 
-  const params = [question_id, random(32).toString(), email, name, body, date_written, 0, 0];
+  const answerParams = [question_id, id, email, name, body, date_written, 0, 0];
+  const queryAnswer = 'INSERT INTO qna.answers_by_question_id (question_id, id, answerer_email, answerer_name, body, date_written, helpful, reported) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
 
-  const query = 'INSERT INTO qna.answers_by_question_id (question_id, id, answerer_email, answerer_name, body, date_written, helpful, reported) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
+  let photoParams = [id, random(32).toString()];
+  let queryPhotos = 'INTO INTO'
 
-  console.log(query, params)
 
-  return await client.execute(query, params, {prepare: true});
+  try {
+    await client.execute(queryAnswer, answerParams, {prepare: true});
+    // return await client.execute(queryPhoto, photoParams, {prepare: true})
+
+    if (!photos) console.log('Photos need adding')
+  }
+  catch (err) {
+    throw new Error('Uhhoh');
+  }
+
 };

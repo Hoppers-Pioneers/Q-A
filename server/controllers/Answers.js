@@ -12,7 +12,8 @@ exports.getAll = async (req, res) => {
 };
 
 exports.add = async (req, res) => {
-  answers.add(req.body)
+  const {params, body} = req
+  answers.add(params, body)
   .then((addResp) => {
     res.status(201).send();
   })
