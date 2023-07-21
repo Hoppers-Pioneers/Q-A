@@ -46,18 +46,26 @@ exports.add = async (reqParams, reqBody) => {
   const answerParams = [question_id, id, email, name, body, date_written, 0, 0];
   const queryAnswer = 'INSERT INTO qna.answers_by_question_id (question_id, id, answerer_email, answerer_name, body, date_written, helpful, reported) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
 
-  let photoParams = [id, random(32).toString()];
-  let queryPhotos = 'INTO INTO'
+  let photoParams;
+  let queryPhotos;
+  const queries = [];
 
 
   try {
     await client.execute(queryAnswer, answerParams, {prepare: true});
-    // return await client.execute(queryPhoto, photoParams, {prepare: true})
 
-    if (!photos) console.log('Photos need adding')
+    if (photos) {
+      photos.forEach((photo) => {
+        queries.push({
+          query: 'INSERT INTO qna.photos_by_answer_id (answer_id, id, url) VALUES (?, ?, ?)',
+          params: [id, random(32).toString(), photo]
+        });
+      });
+
+      return await client.batch(queries, {prepare: true});
+    }
   }
   catch (err) {
-    throw new Error('Uhhoh');
+    throw err;
   }
-
 };
