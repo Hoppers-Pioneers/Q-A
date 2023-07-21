@@ -26,8 +26,8 @@ app.put('/qa/questions/:question_id/helpful', helpfulController.updateQuestionHe
 app.put('/qa/answers/:answer_id/helpful', helpfulController.updateAnswerHelpfulness);
 
 /*----------------------REPORT-----------------------*/
-app.put('/qa/questions/:question_id/report', /*'constrollololol'*/);
-app.put('/qa/answer/:answer_id/report', /*'constrollololol'*/);
+app.put('/qa/questions/:question_id/report', reportController.reportQuestion);
+app.put('/qa/answers/:answer_id/report', reportController.reportAnswer);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
