@@ -3,8 +3,7 @@ const helpful = require('../models/Helpful.js');
 exports.updateQuestionHelpfulness = async (req, res) => {
   helpful.updateQuestionHelpfulness(req.params)
   .then((updateResp) => {
-    console.log(allResp)
-    res.status(200).send(allResp);
+    res.status(204).send();
   })
   .catch((err) => {
     console.error(err);
@@ -15,7 +14,7 @@ exports.updateQuestionHelpfulness = async (req, res) => {
 exports.updateAnswerHelpfulness = async (req, res) => {
   helpful.updateAnswerHelpfulness(req.body)
   .then((updateResp) => {
-    res.status(201).send();
+    res.status(204).send();
   })
   .catch((err) => {
     console.error(err);
